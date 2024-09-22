@@ -31,7 +31,7 @@ Navigate to the project directory
         
         cd Book Managment
 
-Launch the index.html file using a live server extension (such as Live Server for Visual Studio Code) to serve the application locally.
+Launch the index.html file using a live server extension to serve the application locally.
 
 
 Once the server is running, open your web browser and navigate to the provided local URL
