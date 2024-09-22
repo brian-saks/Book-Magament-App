@@ -18,7 +18,7 @@ The data was sourced from an online database of books to provide content for the
 ## Instalation
 Clone the repositry
 
-        git clone https://github.com/tu_usuario/book-management-app
+        git clone https://github.com/brian-saks/Book-Magament-App
 
 
 ## Usage
