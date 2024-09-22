@@ -23,7 +23,7 @@ Clone the repositry
 
 ## Usage
 
-You can access the app online at: [Book Managment](google.com)
+You can access the app online at: [Book Managment App](google.com)
 
 To run the application locally:  
  
