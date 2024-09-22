@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Library App</title>
+        <link rel="stylesheet" href="styles.css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+
+        <script type="module" src="app.js"></script>
+
+        <script src="page.js"></script>
+    </head>
+    <body>
+        <div id="app" class="parent">
+            <div class="div1" id="logo">
+                <img src="assets\book.avif" alt="book logo" />
+            </div>
+
+            <div class="div2" id="header">
+                <h1>SISTEMA GESTOR DE BIBLIOTECA</h1>
+            </div>
+
+            <div class="div3" id="filter">
+                <h2>Filtro</h2>
+                <select
+                    name="categoria"
+                    id="categoria-select"
+                    v-model="selectedCategory"
+                >
+                    <option value="" disabled selected>Categoría</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Nonfiction">Nonfiction</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Historical Fiction">
+                        Historical Fiction
+                    </option>
+                    <option value="Poetry">Poetry</option>
+                    <option value="Young Adult">Young Adult</option>
+                    <option value="Children">Children</option>
+                    <option value="Classics">Classics</option>
+                </select>
+
+                <select
+                    name="disponible"
+                    id="disponible-select"
+                    v-model="selectedAvailability"
+                >
+                    <option value="" disabled selected>Disponibilidad</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Alquilado">Alquilado</option>
+                </select>
+
+                <div class="select-ubic">
+                    <select
+                        name="columna"
+                        id="columna-select"
+                        v-model="selectedColumn"
+                    >
+                        <option value="" disabled selected>Columna</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                    </select>
+
+                    <select name="fila" id="fila-select" v-model="selectedRow">
+                        <option value="" disabled selected>Fila</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                    </select>
+                </div>
+
+                <div class="filter-buttons">
+                    <button id="reset-button" @click="resetFilters">
+                        Reset
+                    </button>
+                    <button id="apply-button" @click="applyFilters">
+                        Aplicar
+                    </button>
+                </div>
+            </div>
+
+            <div class="div4" id="search">
+                <input
+                    type="text"
+                    id="search-bar"
+                    placeholder="Buscar..."
+                    v-model="searchQuery"
+                />
+                <button id="search-btn" @click="applySearch">Buscar</button>
+            </div>
+
+            <div class="modal-backdrop" id="create-modal-backdrop" @click="closeOnBackdropClickCreate"></div>
+            <div class="modal" id="create-modal">
+                <button class="close-btn" id="create-close-btn" @click="closeCreateModal">&times;</button>
+                <h2>Ingresar Libro</h2>
+                
+                <div class="modal-form">
+                    <div class="form-group">
+                        <label for="id">ID:</label>
+                        <input type="text" id="id" v-model="newItem.ID" placeholder="Ingrese ID">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="isbn">ISBN:</label>
+                        <input type="text" id="isbn" v-model="newItem.ISBN" placeholder="Ingrese ISBN">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" v-model="newItem.Nombre" placeholder="Ingrese Nombre">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="autor">Autor:</label>
+                        <input type="text" id="autor" v-model="newItem.Autor" placeholder="Ingrese Autor">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="categoria">Categoría:</label>
+                        <input type="text" id="categoria" v-model="newItem.Categoria" placeholder="Ingrese Categoría">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="ubicacion">Ubicación:</label>
+                        <input type="text" id="ubicacion" v-model="newItem.Ubicacion" placeholder="Ingrese Ubicación">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="disponible">Disponibilidad:</label>
+                        <select id="disponible" v-model="newItem.Disponible" placeholder="Ingrese disponibilidad">
+                            <option value="" disabled selected>Ingrese disponibilidad</option> <!-- Placeholder -->
+                            <option value="Disponible">Disponible</option>
+                            <option value="Solo Sala">Solo Sala</option>
+                            <option value="Alquilado">Alquilado</option>
+                        </select>
+                    </div>
+
+                </div>
+            
+                <div class="create-modal-buttons">
+                    <button id="cancel-create-btn" @click="closeCreateModal">Cancelar</button>
+                    <button id="confirm-create-btn" @click="confirmCreateItem">Confirmar</button>
+                </div>
+            </div>
+
+            
+            <div class="div5" id="create">
+                <button id="create-btn" @click="openCreateModal">Ingresar</button>
+            </div>
+
+            <div class="modal-backdrop" id="edit-modal-backdrop" @click="closeOnBackdropClickEdit"></div>
+            <div class="modal" id="edit-modal">
+                <button class="close-btn" id="edit-close-btn" @click="closeEditModal">&times;</button>
+                <h2>Editar Libro</h2>
+            
+                <div class="modal-form">
+                    <div class="form-group">
+                        <label for="edit-id">ID:</label>
+                        <input type="text" id="edit-id" v-model="editItem.ID" disabled>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="edit-isbn">ISBN:</label>
+                        <input type="text" id="edit-isbn" v-model="editItem.ISBN" placeholder="Ingrese ISBN">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="edit-nombre">Nombre:</label>
+                        <input type="text" id="edit-nombre" v-model="editItem.Nombre" placeholder="Ingrese Nombre">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="edit-autor">Autor:</label>
+                        <input type="text" id="edit-autor" v-model="editItem.Autor" placeholder="Ingrese Autor">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="edit-categoria">Categoría:</label>
+                        <input type="text" id="edit-categoria" v-model="editItem.Categoria" placeholder="Ingrese Categoría">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="edit-ubicacion">Ubicación:</label>
+                        <input type="text" id="edit-ubicacion" v-model="editItem.Ubicacion" placeholder="Ingrese Ubicación">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-disponible">Disponibilidad:</label>
+                        <select id="edit-disponible" v-model="editItem.Disponible">
+                            <option value="Disponible">Disponible</option>
+                            <option value="Solo Sala">Solo Sala</option>
+                            <option value="Alquilado">Alquilado</option>
+                        </select>
+                    </div>
+
+                </div>
+            
+                <div class="edit-modal-buttons">
+                    <button id="edit-cancel-btn" @click="closeEditModal">Cancelar</button>
+                    <button id="edit-confirm-btn" @click="confirmEditItem">Confirmar</button>
+                </div>
+            </div>
+
+            <div class="modal-backdrop" id="delete-modal-backdrop" @click="closeOnBackdropClick"></div>
+            <div class="modal" id="delete-modal">
+                <button class="close-btn" id="delete-close-btn" @click="closeDeleteModal">&times;</button>
+                <p>¿Seguro que desea eliminar?</p>
+                <div class="delete-modal-buttons">
+                    <button id="cancel-delete-btn" @click="closeDeleteModal">Cancelar</button>
+                    <button id="confirm-delete-btn" @click="confirmDelete">Confirmar</button>
+                </div>
+            </div>
+
+            <div class="div6" id="list" :key="filteredItems">
+                <div :key="currentPage">
+                    <div class="table">
+                        <div class="table-header">ID</div>
+                        <div class="table-header">ISBN</div>
+                        <div class="table-header">Nombre</div>
+                        <div class="table-header">Autor</div>
+                        <div class="table-header">Categoria</div>
+                        <div class="table-header">Ubicacion</div>
+                        <div class="table-header">Disponible</div>
+                        <div class="table-header">Acciones</div>
+                    </div>
+
+                    <div v-for="item in paginatedItems" :key="item.ISBN">
+                        <div class="list-item" v-if="item.ID">
+                            <div class="item-content">
+                                {{ truncate(item.ID) }}
+                            </div>
+                            <div class="item-content">
+                                {{ truncate(item.ISBN) }}
+                            </div>
+                            <div class="item-content">
+                                {{ truncate(item.Nombre) }}
+                            </div>
+                            <div class="item-content">
+                                {{ truncate(item.Autor) }}
+                            </div>
+                            <div class="item-content">
+                                {{ truncate(item.Categoria) }}
+                            </div>
+                            <div class="item-content">
+                                {{ truncate(item.Ubicacion) }}
+                            </div>
+                            <div class="item-content">
+                                {{ item.Disponible }}
+                            </div>
+                            <div class="item-content" id="actions">
+                                <div class="action-button">
+                                    <button id="edit-button" @click="openEditModal(item) ">Editar</button>
+                                </div>
+                                <div class="action-button">
+                                    <button id="delete-button" @click="openDeleteModal(item)" >Borrar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+
+                    <div class="pages" v-if="!filterEmpty">
+                        <button
+                            @click="previousPage"
+                            :disabled="currentPage === 1"
+                        >
+                            &lt;
+                        </button>
+                        <span>{{ currentPage }} / {{ totalPages }}</span>
+                        <button
+                            @click="nextPage"
+                            :disabled="currentPage === totalPages"
+                        >
+                            &gt;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
